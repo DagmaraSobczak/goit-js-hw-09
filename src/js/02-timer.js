@@ -16,7 +16,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0] < new Date()) {
-      window.alert('Proszę wybrać datę w przyszłości.');
+      window.alert('Please choose a date in the future');
       startBtn.disabled = true;
     } else {
       startBtn.disabled = false;
@@ -33,6 +33,10 @@ startBtn.addEventListener('click', () => {
 
   let countdownInterval = setInterval(() => {
     const timeLeft = countdownTime - new Date().getTime();
+
+    function addLeadingZero(value) {
+      return value.toString().padStart(2, '0');
+    }
 
     if (timeLeft < 0) {
       clearInterval(countdownInterval);
@@ -58,8 +62,4 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-}
-
-function addLeadingZero(value) {
-  return value.toString().padStart(2, '0');
 }
