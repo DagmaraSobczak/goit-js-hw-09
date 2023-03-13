@@ -16,8 +16,10 @@ img {
   display: block;
   max-width: 100%;
 }
-
 .timer {
+  display: flex;
   flex-direction: row;
   justify-content: start;
+  gap: 10px;
+  color: crimson;
 }
