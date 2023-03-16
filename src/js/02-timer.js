@@ -3,7 +3,8 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
 const startBtn = document.querySelector('[data-start]');
-let countdownTime;
+let countdownTime = new Date().getTime();
+
 const daysValue = document.querySelector('[data-days]');
 const hoursValue = document.querySelector('[data-hours]');
 const minutesValue = document.querySelector('[data-minutes]');
@@ -28,15 +29,19 @@ const options = {
 flatpickr('#datetime-picker', options);
 
 startBtn.addEventListener('click', () => {
-  const currentTime = new Date().getTime();
-  countdownTime = countdownTime - currentTime;
+  const timeLeft = countdownTime - new Date().getTime();
+
+  function addLeadingZero(value) {
+    return value.toString().padStart(2, '0');
+  }
+
+  if (timeLeft <= 0) {
+    Notiflix.Notify.failure('Please choose a date in the future');
+    return;
+  }
 
   let countdownInterval = setInterval(() => {
     const timeLeft = countdownTime - new Date().getTime();
-
-    function addLeadingZero(value) {
-      return value.toString().padStart(2, '0');
-    }
 
     if (timeLeft < 0) {
       clearInterval(countdownInterval);
